@@ -6,24 +6,23 @@
     android:orientation="vertical" >
     
     
-    <com.appbrain.AppBrainBanner 
-  android:layout_width="fill_parent" android:layout_height="50dp" appbrain:design="2" appbrain:colors="2" appbrain:button="6"/>
-    
+	<LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/banner" >
+    	<com.appbrain.AppBrainBanner 
+		  	android:layout_width="fill_parent" 
+		  	android:layout_height="50dp" 
+		  	appbrain:design="2" 
+		  	appbrain:colors="2" 
+		  	appbrain:button="6"/>
+	</LinearLayout>
     
     
     <RelativeLayout 
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-
-
-                                  <!--  
-                                  <com.mobfox.sdk.MobFoxView
-android:id="@+id/mobFoxView"
-android:layout_width="fill_parent"
-android:layout_height="50dp"
-publisherId="58a5b9bfa5e04de0f1a216796b94b856"
-/>
-       -->                           
+                    
                 
                <Button 
         android:id="@+id/button01"

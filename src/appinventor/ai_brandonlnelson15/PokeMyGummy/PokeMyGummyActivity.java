@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.appbrain.AppBrain;
 import com.papaya.cross.promotion.CrossPromotion;
@@ -34,6 +36,8 @@ public class PokeMyGummyActivity extends Activity {
     private static String APPLICATION_ID = "58a5b9bfa5e04de0f1a216796b94b856"; 
 
     public  static CrossPromotion CrossPromotionObject;
+    
+    
     /*
     private void openActionView(String url){
 
@@ -48,6 +52,15 @@ public class PokeMyGummyActivity extends Activity {
     }
     */
     
+    private static String tapfortap;
+    private static String appbrainbanner;
+    private static String appflood;
+    
+    private static boolean tft;
+    private static boolean abb;
+    private static boolean afl;
+    
+    
     public void showAd() {
     	//RevMobAds.showFullscreenAd(this, APPLICATION_ID);
     }
@@ -58,58 +71,85 @@ public class PokeMyGummyActivity extends Activity {
         super.onCreate(icicle);
         
         AppBrain.init(this);
+
         
+        try {
+	        tapfortap = AppBrain.getSettings().get("tapfortap", "on");
+	        appbrainbanner = AppBrain.getSettings().get("appbrainbanner", "on");
+	        appflood = AppBrain.getSettings().get("appflood", "on");
+        }
+        catch(Exception e) {
+        	Toast.makeText(this, "AppBrain settings could not be retrieved.", Toast.LENGTH_LONG).show();
+        }
+        
+        
+        if(tapfortap=="on") {
+        	tft=true;
+        }
+        else if(tapfortap=="off"){
+        	tft=false;
+        }
+        else {
+        	tft=false;
+        }
+        
+
+        if(appbrainbanner=="on") {
+        	abb=true;
+        }
+        else if(appbrainbanner=="off"){
+        	abb=false;
+        }
+        else {
+        	abb=false;
+        }
+        
+
+        if(appflood=="on") {
+        	afl=true;
+        }
+        else if(appflood=="off") {
+        	afl=false;
+        }
+        else{
+        	afl=false;
+        }
        
         
         //RevMobAds.startSession(this, APPLICATION_ID);
         
-        /*
-        cunt = super.getBaseContext();
-        
-        final Fullscreen fs = new Fullscreen(APPLICATION_ID, this);
-        RevMobAdsListener revmobListener = new RevMobAdsListener() {
-            @Override
-            public void onRevMobAdReceived() {
-                Log.i("[RevMob]", "onAdReceived");
-                fs.show();
-            }
-
-            @Override
-            public void onRevMobAdNotReceived(String message) {
-                Log.i("[RevMob]", "onAdNotReceived");
-            }
-
-            @Override
-            public void onRevMobAdDismiss() {
-                Log.i("[RevMob]", "onAdDismiss");
-            }
-
-            @Override
-            public void onRevMobAdClicked() {
-                Toast.makeText(cunt, "Click Intercepted", Toast.LENGTH_SHORT).show();
-            }
-        };
-        fs.setRevMobListener(revmobListener);
-    
-        */
-        
-        TapForTap.setDefaultAppId("f1fc6a00-c2f3-012f-fa76-4040d804a637");
-        TapForTap.checkIn(this);
+              
+        if(tft) {
+	        TapForTap.setDefaultAppId("f1fc6a00-c2f3-012f-fa76-4040d804a637");
+	        TapForTap.checkIn(this);
+        }
+        else{}
         
         setContentView(R.layout.main);
 
-        CrossPromotionObject=new CrossPromotion(this, "BSMr5yh2evMx9cbp",
-        		"5w20Stad155L503aeac5", CrossPromotionConfig.AD_ALL,CrossPromotionConfig.PANEL_LANDSCAPE);
-        
-
-      CrossPromotionObject.showPanel(this,CrossPromotionConfig.PANEL_TOP);
+        if(afl) {
+	        CrossPromotionObject=new CrossPromotion(this, "BSMr5yh2evMx9cbp",
+	        		"5w20Stad155L503aeac5", CrossPromotionConfig.AD_ALL,CrossPromotionConfig.PANEL_LANDSCAPE);
+	
+	        CrossPromotionObject.showPanel(this,CrossPromotionConfig.PANEL_TOP);
+        }
+        else{}
         
         
         final Button button01 = (Button) findViewById(R.id.button01);
-        
-      
 
-         adView = (AdView) findViewById(R.id.ad_view);
+        if(tft) {
+        	adView = (AdView) findViewById(R.id.ad_view);
+        }
+        else{}
+        
+        
+        final LinearLayout bannerLayout = (LinearLayout) findViewById(R.id.banner);
+        
+        if(!abb) {
+        	bannerLayout.removeAllViews();
+        }
+        else{}
         
 
         final int[] array01;
@@ -131,7 +171,7 @@ public class PokeMyGummyActivity extends Activity {
        
         
         
-final Activity a = this;
+        final Activity a = this;
         
         
         button01.setOnClickListener(new View.OnClickListener() {
@@ -162,8 +202,10 @@ final Activity a = this;
 				
 		});
         
-        adView.loadAds();
-
+        if(tft) {
+        	adView.loadAds();
+        }
+        else{}
         
     }
     
@@ -178,7 +220,10 @@ final Activity a = this;
     public void onResume() {
     	super.onResume();
     	
-        adView.loadAds();
+    	if(tft) {
+    		adView.loadAds();
+    	}
+    	else{}
 
     	//RevMobAds.startSession(this, APPLICATION_ID);
 

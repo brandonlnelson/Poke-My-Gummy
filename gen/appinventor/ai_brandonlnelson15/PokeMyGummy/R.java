@@ -26,9 +26,10 @@ public final class R {
         public static final int pokemygummy=0x7f02000c;
     }
     public static final class id {
-        public static final int ad_view=0x7f060001;
-        public static final int button01=0x7f060000;
-        public static final int webview=0x7f060002;
+        public static final int ad_view=0x7f060002;
+        public static final int banner=0x7f060000;
+        public static final int button01=0x7f060001;
+        public static final int webview=0x7f060003;
     }
     public static final class layout {
         public static final int main=0x7f030000;
